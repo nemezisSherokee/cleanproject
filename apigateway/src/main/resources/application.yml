@@ -1,0 +1,24 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: apigateway
+  cloud:
+    gateway:
+      routes:
+        - id: productcatalog
+          uri: http://localhost:8081/
+          predicates:
+            - Path=/productcatalog/**
+          filters:
+            - RewritePath=/productcatalog/(?<segment>.*), /${segment}
+
+
+        - id: orderprocessing
+          uri: http://localhost:8082
+          predicates:
+            - Path=/orderprocessing/**
+          filters:
+            - RewritePath=/orderprocessing/(?<segment>.*), /${segment}
+
