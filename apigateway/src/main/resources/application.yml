@@ -12,13 +12,12 @@ spring:
           predicates:
             - Path=/productcatalog/**
           filters:
-            - RewritePath=/productcatalog/(?<segment>.*), /${segment}
-
+            - RewritePath=/productcatalog/(?<segment>.*), /productcatalog/${segment}
 
         - id: orderprocessing
           uri: http://localhost:8082
           predicates:
             - Path=/orderprocessing/**
           filters:
-            - RewritePath=/orderprocessing/(?<segment>.*), /${segment}
+            - RewritePath=/orderprocessing/(?<segment>.*), /©/${segment}
 

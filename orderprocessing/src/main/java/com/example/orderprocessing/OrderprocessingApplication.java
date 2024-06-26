@@ -23,7 +23,7 @@ public class OrderprocessingApplication {
     @Bean
     public WebClient productcatalogWebClient(WebClient.Builder webClientBuilder) {
         return webClientBuilder.
-                baseUrl("http://productcatalog").
+                baseUrl("http://productcatalog/productcatalog/api/v1.0").
                 build();
     }
 
@@ -32,7 +32,7 @@ public class OrderprocessingApplication {
     }
 
     @RestController
-    @RequestMapping("/api/v1.0")
+    @RequestMapping("orderprocessing/api/v1.0")
     public static class MyRestController {
 
         final WebClient productcatalogWebClient;
@@ -55,7 +55,7 @@ public class OrderprocessingApplication {
         public Mono<String> getCommunicationPartner() {
             Mono<String> response = productcatalogWebClient
                     .get()
-                    .uri("/api/v1.0/version")
+                    .uri("/version")
                     .retrieve()
                     .bodyToMono(String.class);
 
