@@ -9,6 +9,20 @@ spring:
     bootstrap-servers: localhost:9092
     consumer:
       group-id: myGroup
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgreslearning
+    username: postgreslearning
+    password: postgreslearning
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    generate-ddl: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
 server:
   port=: 8082

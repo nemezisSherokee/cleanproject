@@ -34,5 +34,15 @@ services:
       - myNetwork
     depends_on:
       - zookeeper
+  postgres:
+    image: postgres:14-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - ~/apps/postgreslearning:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgreslearning
+      - POSTGRES_USER=postgreslearning
+      - POSTGRES_DB=postgreslearning
 networks:
   myNetwork:
