@@ -1,19 +1,22 @@
 package com.example.orderprocessing;
 
+import com.example.infrastructures.entities.Order;
+import com.example.orderprocessing.services.OrderService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @SpringBootApplication
-@EntityScan(basePackages = {"com.example.infrastructures.entities"}) // TODO: could be added to a config as well
 public class OrderprocessingApplication {
 
     @Bean
@@ -36,13 +39,12 @@ public class OrderprocessingApplication {
 
     @RestController
     @RequestMapping("orderprocessing/api/v1.0")
+    @RequiredArgsConstructor
     public static class MyRestController {
 
-        final WebClient productcatalogWebClient;
+        private final WebClient productcatalogWebClient;
+        private final OrderService orderService;
 
-        public MyRestController(WebClient productcatalogWebClient) {
-            this.productcatalogWebClient = productcatalogWebClient;
-        }
 
         @GetMapping("/hello")
         public String hello() {
@@ -52,6 +54,18 @@ public class OrderprocessingApplication {
         @GetMapping("/version")
         public String getVersion() {
             return ("Processing Service v1.0");
+        }
+
+        @GetMapping("/orders")
+        public List<Order> getOrders() {
+            return orderService.getAllOrdersByCustomerName("Avis Kuvalis");
+        }
+
+        @GetMapping("/orders/since/yersterday")
+        public List<Order> findOrdersWithinDateRange() {
+            LocalDateTime startDate = LocalDateTime.now().minusDays(1);
+            LocalDateTime endDate = LocalDateTime.now();
+            return orderService.findOrdersWithinDateRange(startDate, endDate);
         }
 
         @GetMapping("/partners")

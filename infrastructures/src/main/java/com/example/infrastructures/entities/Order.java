@@ -1,14 +1,19 @@
 package com.example.infrastructures.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import java.time.LocalDateTime;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 @Entity
 @Data
 @Builder
 @Table(name = "orders")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,5 +23,6 @@ public class Order {
     private String product;
     private Integer quantity;
     private Double price;
-    private LocalDateTime orderDate;
+    private Date orderDate;
+
 }

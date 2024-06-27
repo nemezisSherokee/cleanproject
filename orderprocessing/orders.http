@@ -1,0 +1,13 @@
+GET http://localhost:8082/orderprocessing/api/v1.0/orders/since/yersterday
+Accept: application/json
+
+###
+POST http://localhost:8081/productcatalog/api/v1.0/
+Content-Type: application/json
+
+"Kessya n adone plus les croauettes"
+
+###
+http://localhost:8082/orderprocessing/api/v1.0/orders
+
+###

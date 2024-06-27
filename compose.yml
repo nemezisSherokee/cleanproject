@@ -44,5 +44,18 @@ services:
       - POSTGRES_PASSWORD=postgreslearning
       - POSTGRES_USER=postgreslearning
       - POSTGRES_DB=postgreslearning
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ~/apps/redis/data:/root/redis
+      - ~/apps/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    environment:
+      - REDIS_PASSWORD=redis
+      - REDIS_PORT=6379
+      - REDIS_DATABASES=16
+
 networks:
   myNetwork:

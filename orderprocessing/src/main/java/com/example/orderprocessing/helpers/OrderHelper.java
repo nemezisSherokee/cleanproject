@@ -4,7 +4,7 @@ package com.example.orderprocessing.helpers;
 import com.example.infrastructures.entities.Order;
 import com.github.javafaker.Faker;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Random;
 
 
@@ -18,7 +18,7 @@ public class OrderHelper {
                 .product(faker.commerce().productName())
                 .quantity(random.nextInt(100) + 1) // Random quantity between 1 and 100
                 .price(Double.parseDouble("566"))
-                .orderDate(LocalDateTime.now())
+                .orderDate(new Date())
                 .build();
     }
 }

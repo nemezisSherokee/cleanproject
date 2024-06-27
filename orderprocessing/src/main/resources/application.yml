@@ -14,6 +14,8 @@ spring:
     username: postgreslearning
     password: postgreslearning
     driver-class-name: org.postgresql.Driver
+  cache:
+    type: redis
 
   jpa:
     hibernate:
@@ -23,6 +25,12 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: redis
+      connect-timeout: 60000
 
 server:
   port=: 8082

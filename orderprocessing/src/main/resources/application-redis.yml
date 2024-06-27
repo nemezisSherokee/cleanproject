@@ -1,0 +1,3 @@
+cache:
+  redis:
+    duration: 600s
