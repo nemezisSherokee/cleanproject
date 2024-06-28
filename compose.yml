@@ -29,7 +29,7 @@ services:
       - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
       - ALLOW_PLAINTEXT_LISTENER=yes
     volumes:
-      - ./Kafka:/bitnami/kafka
+      - ./.kafka:/bitnami/kafka
     networks:
       - myNetwork
     depends_on:
