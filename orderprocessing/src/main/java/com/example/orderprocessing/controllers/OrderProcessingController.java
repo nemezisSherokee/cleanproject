@@ -3,6 +3,7 @@ package com.example.orderprocessing.controllers;
 import com.example.infrastructures.entities.Order;
 import com.example.orderprocessing.services.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,12 +22,12 @@ public class OrderProcessingController {
     private final WebClient productcatalogWebClient;
     private final OrderService orderService;
 
-    @GetMapping("/hello")
+    @GetMapping(value = "/hello", produces = MediaType.APPLICATION_JSON_VALUE)
     public String hello() {
         return "Hello, World Order Processing Service!";
     }
 
-    @GetMapping("/version")
+    @GetMapping(value = "/version", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getVersion() {
         return ("Processing Service v1.0");
     }

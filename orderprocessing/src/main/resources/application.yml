@@ -32,6 +32,26 @@ spring:
       password: redis
       connect-timeout: 60000
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+      base-path: /
+      path-mapping:
+        prometheus: "metrics"
+  metrics:
+    tags:
+      application: "OrderService"
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
 server:
   port=: 8082
 

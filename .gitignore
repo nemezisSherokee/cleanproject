@@ -1,6 +1,7 @@
 HELP.md
 target/
 .kafka/
+.cfg/
 lib/
 **/.mvn/
 !.mvn/wrapper/maven-wrapper.jar

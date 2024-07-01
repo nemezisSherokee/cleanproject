@@ -1,8 +1,13 @@
 package com.example.orderprocessing.services;
 
 import com.example.infrastructures.entities.Order;
+import com.example.orderprocessing.exceptions.DataBaseException;
 import com.example.orderprocessing.helpers.OrderHelper;
+import com.example.orderprocessing.monitoring.interfaces.IActiveRequestsGauge;
+import com.example.orderprocessing.monitoring.interfaces.ICreatedCounter;
+import com.example.orderprocessing.monitoring.interfaces.ICreationTimer;
 import com.example.orderprocessing.repository.OrderRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
 
+import static com.example.orderprocessing.constants.ExceptionMessages.CANNOT_SAVE_ENTITY_TO_THE_DATA_BASE;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -21,18 +27,73 @@ class OrderServiceTest {
     @Mock
     OrderRepository orderRepository;
 
+    @Mock
+    ICreationTimer orderCreationTimer;
+
+    @Mock
+    IActiveRequestsGauge activeOrderRequestsGauge;
+
+    @Mock
+    ICreatedCounter orderCreatedCounter;
+
     @InjectMocks
     OrderService orderService;
+
+    @BeforeEach
+    void before() {
+    }
+
+    @Test
+    void saveOrderWithException() {
+        // prepare
+        Order order = OrderHelper.createRandomOrder();
+
+        when(activeOrderRequestsGauge.increment()).thenReturn(0);
+        when(activeOrderRequestsGauge.decrement()).thenReturn(0);
+
+        doAnswer(invocation -> {
+            Runnable task = invocation.getArgument(0);
+            task.run();
+            return null;
+        }).when(orderCreationTimer).recordTime(any(Runnable.class));
+        when(orderRepository.save(any())).thenReturn(null);
+
+        // act
+        RuntimeException exception = assertThrows(DataBaseException.class, () -> orderService.saveOrder(order));
+
+        // verify
+        assertTrue(exception.getMessage().contentEquals(CANNOT_SAVE_ENTITY_TO_THE_DATA_BASE));
+        verify(orderRepository, times(1)).save(order);
+        verify(activeOrderRequestsGauge).increment();
+        verify(activeOrderRequestsGauge).decrement();
+        verify(orderCreatedCounter, never()).incrementCounter(); // Ensure counter is not incremented on failure
+        verify(orderCreationTimer, times(1)).recordTime(any(Runnable.class));
+    }
 
     @Test
     void saveOrder() {
         // prepare
+        Order order = OrderHelper.createRandomOrder();
+        when(orderRepository.save(any())).thenReturn(order);
+
+        when(activeOrderRequestsGauge.increment()).thenReturn(0);
+        when(activeOrderRequestsGauge.decrement()).thenReturn(0);
+
+        doAnswer(invocation -> {
+            Runnable task = invocation.getArgument(0);
+            task.run();
+            return null;
+        }).when(orderCreationTimer).recordTime(any(Runnable.class));
 
         // act
-        orderService.saveOrder(any());
+        orderService.saveOrder(order);
 
         // verify
-        verify(orderRepository, times(1)).save(any());
+        verify(orderRepository, times(1)).save(order);
+        verify(activeOrderRequestsGauge).increment();
+        verify(activeOrderRequestsGauge).decrement();
+        verify(orderCreationTimer, times(1)).recordTime(any(Runnable.class));
+        verify(orderCreatedCounter, times(1)).incrementCounter();
     }
 
     @Test

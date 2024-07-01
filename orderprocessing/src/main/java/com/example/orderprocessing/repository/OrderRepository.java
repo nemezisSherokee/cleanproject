@@ -17,4 +17,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query(value = "SELECT * FROM orders WHERE order_date BETWEEN :startDate AND :endDate", nativeQuery = true)
     List<Order> findOrdersWithinDateRange(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+
+    @Query(value = "SELECT count(*) FROM orders WHERE order_date BETWEEN :startDate AND :endDate", nativeQuery = true)
+    int countOrdersWithinDateRange(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 }

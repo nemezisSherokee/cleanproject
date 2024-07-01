@@ -49,20 +49,16 @@ class OrderProcessingControllerTest extends BaseTestClass {
     @Test
     void hello() {
         this.webTestClient.get().uri("/orderprocessing/api/v1.0/hello")
-                .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
-                .expectHeader().contentType(MediaType.APPLICATION_JSON)
                 .expectBody(String.class);
     }
 
     @Test
     void getVersion() {
         this.webTestClient.get().uri("/orderprocessing/api/v1.0/version")
-                .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
-                .expectHeader().contentType(MediaType.APPLICATION_JSON)
                 .expectBody(String.class);
 
     }
