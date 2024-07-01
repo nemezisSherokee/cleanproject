@@ -7,6 +7,7 @@ import com.example.orderprocessing.monitoring.interfaces.ICreatedCounter;
 import com.example.orderprocessing.monitoring.interfaces.ICreationTimer;
 import com.example.orderprocessing.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import static com.example.orderprocessing.constants.ExceptionMessages.CANNOT_SAV
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OrderService {
 
     private final OrderRepository orderRepository;
@@ -32,13 +34,14 @@ public class OrderService {
     }
     @CacheEvict(value = { "ordersByCustomerName", "ordersWithinDateRange" }, allEntries = true)
     public void saveOrder(Order order) {
-
+        log.info("Saving new Order : {}", order);
         activeOrderCreationRequests.increment();
         try {
              AtomicReference<Order> createdOrder = new AtomicReference<>();
              orderCreationTimer.recordTime(() -> createdOrder.set(Optional.ofNullable(orderRepository.save(order))
                      .orElseThrow(() -> new DataBaseException(CANNOT_SAVE_ENTITY_TO_THE_DATA_BASE))));
              orderCreatedCounter.incrementCounter();
+            log.info("new order with id {} created", createdOrder.get().getId());
         } finally {
             activeOrderCreationRequests.decrement();
         }

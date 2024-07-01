@@ -63,3 +63,7 @@ eureka:
     register-with-eureka: true
     service-url:
       defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}
+
+logging:
+  file:
+    name: ./.apps/logstash/order-processing-service/logs/order-processing-service.log

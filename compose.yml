@@ -73,5 +73,47 @@ services:
     env_file:
       - ./cfg/grafana/grafana.env
 
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.13
+    container_name: es
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      - myNetwork
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.17.13
+    container_name: logstash
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./.apps/logstash/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./.apps/logstash:/usr/share/logstash/config
+      - ./.apps/logstash/order-processing-service/logs:/usr/share/logstash/logs
+      - ./.apps/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    command: ["-f", "/usr/share/logstash/config/logstash.conf"]
+    depends_on:
+      - elasticsearch
+    networks:
+      - myNetwork
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.13
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    depends_on:
+      - logstash
+    networks:
+      - myNetwork
+
+
 networks:
   myNetwork:
+    driver: bridge
+  elk-network:
+    driver: bridge
