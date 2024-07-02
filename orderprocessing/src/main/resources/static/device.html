@@ -13,6 +13,7 @@
         var stompClient = null;
         var currentSubscription = null;
         var currentTopic = 'general'; // Default topic
+        var date = new Date().toISOString().split('T')[0]; // Example date format
 
         function connect() {
             var socket = new SockJS('/ws');
@@ -28,9 +29,10 @@
             if (currentSubscription) {
                 currentSubscription.unsubscribe();
             }
+
             currentSubscription = stompClient.subscribe(topic, function (message) {
                 var parsedMessage = JSON.parse(message.body);
-                if (currentTopic === 'urgent') {
+                if (topic.includes('urgent')) {
                     showUrgentMessage(parsedMessage);
                 } else {
                     showMessage(parsedMessage);
@@ -41,7 +43,8 @@
         function sendMessage() {
             var from = document.getElementById('from').value;
             var text = document.getElementById('text').value;
-            stompClient.send("/orderservice/chat.unknown.send", {}, JSON.stringify({'from': from, 'text': text}));
+            var deviceId = document.getElementById('deviceId').value + "-" + date;
+            stompClient.send("/orderservice/chat.device.send", {}, JSON.stringify({'from': from, 'text': text, 'deviceId': deviceId, 'date': date}));
         }
 
         function showMessage(message) {
@@ -60,7 +63,9 @@
         }
 
         function changeTopic() {
-            var newTopic = document.getElementById('topic').value;
+            var deviceId = document.getElementById('deviceId').value;
+            var newTopic = deviceId + '-' + date;
+
             currentTopic = newTopic;
             subscribeToTopic('/topic/' + newTopic);
         }
@@ -72,15 +77,13 @@
 </head>
 <body>
 <div>
-    <input type="text" id="from" placeholder="Your name"/>
-    <input type="text" id="text" placeholder="Your message"/>
+    <input type="text" id="from" placeholder="Your name" value="Nemezis"/>
+    <input type="text" id="text" placeholder="Your message" value="max"/>
+    <input type="text" id="deviceId" placeholder="Device ID" value="987656"/>
     <button onclick="sendMessage()">Send</button>
 </div>
 <div>
-    <select id="topic" onchange="changeTopic()">
-        <option value="general">General</option>
-        <option value="urgent">Urgent</option>
-    </select>
+    <button onclick="changeTopic()">Change Topic</button>
 </div>
 <table id="messages">
     <tr>
