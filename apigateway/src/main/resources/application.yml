@@ -19,5 +19,5 @@ spring:
           predicates:
             - Path=/orderprocessing/**
           filters:
-            - RewritePath=/orderprocessing/(?<segment>.*), /©/${segment}
+            - RewritePath=/orderprocessing/(?<segment>.*), /orderprocessing/${segment}
 

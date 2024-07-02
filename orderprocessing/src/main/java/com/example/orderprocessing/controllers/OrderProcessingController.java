@@ -22,6 +22,11 @@ public class OrderProcessingController {
     private final WebClient productcatalogWebClient;
     private final OrderService orderService;
 
+    @GetMapping
+    public String testHttp2() {
+        return "return testHttp2";
+    }
+
     @GetMapping(value = "/hello", produces = MediaType.APPLICATION_JSON_VALUE)
     public String hello() {
         return "Hello, World Order Processing Service!";

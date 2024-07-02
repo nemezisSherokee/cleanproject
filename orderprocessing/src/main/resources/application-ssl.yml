@@ -1,0 +1,11 @@
+# Changes the server port used by Spring Boot to the default one used for HTTPS on Tomcat
+server:
+  port: 8443
+  http2:
+    enabled: true
+  ssl:
+    key-store-type: PKCS12
+    key-store: classpath:localhost.p12
+    key-alias: localhost
+    key-store-password: '*****'
+#    Follow this tutorial for more: https://brytecode.be/articles/using-http-2-in-your-spring-boot-application/
