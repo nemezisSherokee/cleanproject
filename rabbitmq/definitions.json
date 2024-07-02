@@ -1,0 +1,33 @@
+{
+  "rabbit_version": "3.8.9",
+  "users": [
+    {
+      "name": "guest",
+      "password_hash": "SFSBei+xKWMlLBcIyi1OaTovEEhfMTbX9Jqe7t11f/9vS0w0",
+      "tags": "administrator"
+    }
+  ],
+  "vhosts": [
+    {
+      "name": "/"
+    }
+  ],
+  "permissions": [
+    {
+      "user": "guest",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "queues": [
+    {
+      "name": "myQueue",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    }
+  ]
+}

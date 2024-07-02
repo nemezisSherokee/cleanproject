@@ -17,6 +17,7 @@ public class MessageConsumer {
     private final OrderService orderService;
 
     @RabbitListener(queues = "myQueue")
+    // be sure the queue exists before launching this apps. it will else fail
     public void receiveMessage(String message) {
         latch.countDown();
         orderService.saveOrder(OrderHelper.createRandomOrder());

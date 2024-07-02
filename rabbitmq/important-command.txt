@@ -1,0 +1,4 @@
+docker rm rabbitmq-container -f && docker compose up -d
+rabbitmqctl hash_password foobar
+docker exec rabbitmq-container rabbitmqctl hash_password guest
+docker logs rabbitmq-container
