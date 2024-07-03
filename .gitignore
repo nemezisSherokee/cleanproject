@@ -36,3 +36,7 @@ build/
 ### VS Code ###
 .vscode/
 order-processing-service.log
+/.zk-data/
+/.zk-txn-logs/
+/.apps/logstash/order-processing-service/logs/
+/.jenkins_home/
