@@ -18,7 +18,7 @@ public class RabbitMQListener {
     private final SimpMessagingTemplate messagingTemplate;
     private final RabbitAdmin rabbitAdmin;
 
-    @RabbitListener(queues = "myQueue")
+    @RabbitListener(queues = "wsQueue")
     public void handleMessage(WsMessage message) {
         String queueName = "chat." + message.getDeviceId();
 

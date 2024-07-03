@@ -8,7 +8,9 @@ public class KafkaConsumer {
 
     @KafkaListener(topics = "myTopic", groupId = "myGroup")
     public void receiveMessage(String message) {
-        System.out.println("Received kafka message: " + message);
+        System.out.println("I have send a message via RabbitMQ " +
+                "and received a response via Kafka" +
+                 message);
     }
 
 }

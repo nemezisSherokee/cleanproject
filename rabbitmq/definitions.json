@@ -25,7 +25,14 @@
     {
       "name": "myQueue",
       "vhost": "/",
-      "durable": true,
+      "durable": false,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "wsQueue",
+      "vhost": "/",
+      "durable": false,
       "auto_delete": false,
       "arguments": {}
     }

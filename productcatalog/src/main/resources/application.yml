@@ -1,24 +1,24 @@
 spring:
   application:
-    name: productcatalog
+    name: ${SPRING_APPLICATION_NAME}
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
     consumer:
-      group-id: myGroup
+      group-id: ${KAFKA_CONSUMER_GROUP_ID}
 
 server:
-  port=: 8081
+  port: ${SERVER_PORT}
 
 eureka:
   instance:
-    prefer-ip-address: true
+    prefer-ip-address: ${EUREKA_INSTANCE_PREFER_IP_ADDRESS}
   client:
-    fetch-registry: true
-    register-with-eureka: true
+    fetch-registry: ${EUREKA_CLIENT_FETCH_REGISTRY}
+    register-with-eureka: ${EUREKA_CLIENT_REGISTER_WITH_EUREKA}
     service-url:
       defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}

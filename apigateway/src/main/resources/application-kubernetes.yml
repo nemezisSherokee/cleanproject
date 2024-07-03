@@ -3,20 +3,21 @@ server:
 
 spring:
   application:
-    name: ${GATEWAY_APPLICATION_NAME}
+    name: apigateway
   cloud:
     gateway:
       routes:
         - id: productcatalog
-          uri: ${PRODUCT_CATALOG_URI}
+          uri: http://localhost:8081/
           predicates:
             - Path=/productcatalog/**
           filters:
             - RewritePath=/productcatalog/(?<segment>.*), /productcatalog/${segment}
 
         - id: orderprocessing
-          uri: ${ORDER_PROCESSING_URI}
+          uri: http://localhost:8082
           predicates:
             - Path=/orderprocessing/**
           filters:
             - RewritePath=/orderprocessing/(?<segment>.*), /orderprocessing/${segment}
+

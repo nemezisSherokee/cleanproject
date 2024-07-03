@@ -1,69 +1,69 @@
 spring:
   application:
-    name: orderprocessing
+    name: ${SPRING_APPLICATION_NAME}
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
     consumer:
-      group-id: myGroup
+      group-id: ${KAFKA_CONSUMER_GROUP_ID}
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgreslearning
-    username: postgreslearning
-    password: postgreslearning
-    driver-class-name: org.postgresql.Driver
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+    driver-class-name: ${DATASOURCE_DRIVER_CLASS_NAME}
   cache:
-    type: redis
+    type: ${CACHE_TYPE}
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
-    generate-ddl: true
+      ddl-auto: ${JPA_HIBERNATE_DDL_AUTO}
+    show-sql: ${JPA_SHOW_SQL}
+    generate-ddl: ${JPA_GENERATE_DDL}
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: ${JPA_HIBERNATE_DIALECT}
   data:
     redis:
-      host: localhost
-      port: 6379
-      password: redis
-      connect-timeout: 60000
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+      password: ${REDIS_PASSWORD}
+      connect-timeout: ${REDIS_CONNECT_TIMEOUT}
 
 management:
   endpoints:
     web:
       exposure:
-        include: health,info,metrics,prometheus
-      base-path: /
+        include: ${MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE}
+      base-path: ${MANAGEMENT_ENDPOINTS_WEB_BASE_PATH}
       path-mapping:
-        prometheus: "metrics"
+        prometheus: ${MANAGEMENT_ENDPOINTS_WEB_PATH_MAPPING_PROMETHEUS}
   metrics:
     tags:
-      application: "OrderService"
+      application: ${MANAGEMENT_METRICS_TAGS_APPLICATION}
   endpoint:
     health:
-      enabled: true
-      show-details: always
+      enabled: ${MANAGEMENT_ENDPOINT_HEALTH_ENABLED}
+      show-details: ${MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS}
   prometheus:
     metrics:
       export:
-        enabled: true
+        enabled: ${MANAGEMENT_PROMETHEUS_METRICS_EXPORT_ENABLED}
 
 server:
-  port: 8082
+  port: ${SERVER_PORT}
 
 eureka:
   instance:
-    prefer-ip-address: true
+    prefer-ip-address: ${EUREKA_INSTANCE_PREFER_IP_ADDRESS}
   client:
-    fetch-registry: true
-    register-with-eureka: true
+    fetch-registry: ${EUREKA_CLIENT_FETCH_REGISTRY}
+    register-with-eureka: ${EUREKA_CLIENT_REGISTER_WITH_EUREKA}
     service-url:
-      defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}
+      defaultZone: ${EUREKA_SERVER_ADDRESS}
 
 logging:
   file:
-    name: ./.apps/logstash/order-processing-service/logs/order-processing-service.log
+    name: ${LOGGING_FILE_NAME}
