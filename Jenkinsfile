@@ -30,12 +30,12 @@ pipeline {
             }
         }
 
-        stage('Docker Build') {
-            steps {
-                script {
-                    def app = docker.build("${DOCKER_HUB_REPO}:${env.BUILD_ID}")
-                }
-            }
-        }
+//         stage('Docker Build') {
+//             steps {
+//                 script {
+//                     def app = docker.build("${DOCKER_HUB_REPO}:${env.BUILD_ID}")
+//                 }
+//             }
+//         }
     }
 }
