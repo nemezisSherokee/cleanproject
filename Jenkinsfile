@@ -1,14 +1,21 @@
 pipeline {
     agent {
-        docker {
-            image 'maven:3.6.3-openjdk-17-slim'
-            args '-v /root/.m2:/root/.m2'
+        dockerfile {
+            filename 'agent/Dockerfile'
+            args '-v /root/.m2:/root/.m2 -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
 
     environment {
         MAVEN_OPTS = '-Dmaven.repo.local=/root/.m2/repository'
         DOCKER_HUB_REPO = 'nemezis/testcleanproject'
+        DOCKERHUB_AUTH = credentials('DockerHubCredentials')
+        MYSQL_AUTH= credentials('MYSQL_AUTH')
+        IMAGE_NAME= 'paymybuddy'
+        IMAGE_TAG= 'latest'
+        HOSTNAME_DEPLOY_STAGING = "34.230.2.252"
+        HOSTNAME_DEPLOY_PROD = "54.145.64.29"
+
     }
 
     stages {
