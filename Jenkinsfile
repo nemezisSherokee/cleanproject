@@ -135,12 +135,13 @@ pipeline {
                                  sh "ls"
                                  sh "ls ./target"
                                  sh "ls -l"
+                                 sh "cat Dockerfile"
 
                                  //def app1 = docker.build("getintodevops/hellonode")
 
 
                             script {
-                             sh 'docker build -t nemezis/paris/3 .'
+                             sh 'docker build -t nemezis/paris:3 .'
                             }
 
                                  // docker build -t "$JimageName" .
