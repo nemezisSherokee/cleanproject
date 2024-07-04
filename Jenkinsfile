@@ -30,7 +30,7 @@ pipeline {
 
                 script {
                     def changes = []
-
+                    sh 'docker ps'
                     if (env.CHANGE_ID) { // Check if triggered via Pull Request
                         echo "Pull Request Trigger"
                         // Get changes via git diff to know which module should be built
