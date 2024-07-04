@@ -18,6 +18,7 @@ pipeline {
         profile = "test"
         // BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
         BRANCH_NAME = "${GIT_BRANCH.split('/').size() > 1 ? GIT_BRANCH.split('/')[1..-1].join('/') : GIT_BRANCH}"
+        registry = "YourDockerhubAccount/YourRepository"
 
     }
 
@@ -134,12 +135,19 @@ pipeline {
                                  sh "ls ./target"
                                  sh "ls -l"
                                  // docker build -t "$JimageName" .
-                                 def app = docker.build(imageName, ".")
+                                 //def app = docker.build(imageName, ".")
                                 sh "ls ./target"
 
-                                docker.withRegistry('https://index.docker.io/v1/', 'DockerCredentials') {
-                                    app.push()
+//                                 docker.withRegistry('https://index.docker.io/v1/', 'DockerCredentials') {
+//                                     app.push()
+//                                 }
+
+                                docker.withRegistry('docker.io/', 'DockerCredentials') {
+                                    def app = docker.build(imageName)
+                                    // app.push()
                                 }
+                                sh "ls ./target"
+
                             }
                         }
                     }
