@@ -8,4 +8,9 @@ Jenkins pipeline fails with docker not found message
 CICD SPRING BOOT APP AVEC JENKINS, DOCKER, GITHUB HOOKS, SONARCLOUD
     https://eazytraining.fr/cicd-spring-boot-app-avec-jenkins-docker-github-hooks-sonarcloud/
 
+configure Docker on jenkins mac book:
+https://stackoverflow.com/questions/50916740/docker-command-not-found-in-local-jenkins-multi-branch-pipeline
+(For Mac user, adding path to Docker in tools should do the trick. please check the screenshots.)
+
+
 
