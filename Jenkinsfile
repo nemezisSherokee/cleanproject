@@ -1,5 +1,10 @@
 pipeline {
     agent any
+
+        tools {
+            maven 'Maven 3.2.5'
+        }
+
 //     agent {
 //         dockerfile {
 //             filename 'agent/Dockerfile'
@@ -28,13 +33,20 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                    withMaven {
+                      sh "mvn clean package"
+                    } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe reports and FindBugs reports
+
+                // sh 'mvn clean package'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'mvn test'
+                                    withMaven {
+                                      sh "mvn clean test"
+                                    } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe reports and FindBugs reports
+
             }
         }
 
