@@ -25,11 +25,14 @@ pipeline {
     stages {
         // Stage to get all the files that were modified
         stage("get diff") {
+
+        steps {
+                    sh 'docker ps'
+        }
             steps {
 
                 script {
                     def changes = []
-                    sh 'docker ps'
 
                     if (env.CHANGE_ID) { // Check if triggered via Pull Request
                         echo "Pull Request Trigger"
