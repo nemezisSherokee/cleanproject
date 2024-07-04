@@ -12,3 +12,5 @@ COPY target/orderprocessing-0.0.1-SNAPSHOT.jar app.jar
 ADD entrypoint.sh entrypoint.sh
 CMD [ "entrypoint.sh" ]
 ENTRYPOINT ["sh"]
+
+

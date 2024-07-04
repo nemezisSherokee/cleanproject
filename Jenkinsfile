@@ -144,8 +144,6 @@ pipeline {
 
                             script {
                              sh 'docker build -t nemezis/paris:3 .'
-                            }
-
                                  // docker build -t "$JimageName" .
 //                                  def apps = docker.build(imageName, ".")
                                  sh "ls ./target"
@@ -158,6 +156,8 @@ pipeline {
                                     // app.push()
                                 }
                                 sh "ls ./target"
+                            }
+
 
                             }
                         }
