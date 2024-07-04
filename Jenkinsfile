@@ -81,8 +81,6 @@ pipeline {
             steps {
                 withMaven {
                     sh "mvn clean package"
-                    def imageName = "${module}:${env.BUILD_ID}-SNAPSHOT"
-                    def app = docker.build(imageName, ".")
 
                 } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe reports and FindBugs reports
             }
