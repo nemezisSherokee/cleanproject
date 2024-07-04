@@ -8,8 +8,8 @@ pipeline {
 
     tools {
         maven 'maven-apache'
-        dockerTool 'docker'
-        dockerTool 'docker'
+//         dockerTool 'docker'
+//         dockerTool 'docker'
     }
 
     environment {
@@ -135,7 +135,7 @@ pipeline {
                                  sh "ls ./target"
                                  sh "ls -l"
 
-                                 def app = docker.build("getintodevops/hellonode")
+                                 def app1 = docker.build("getintodevops/hellonode")
 
                                  // docker build -t "$JimageName" .
 //                                  def apps = docker.build(imageName, ".")
