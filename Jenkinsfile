@@ -48,10 +48,13 @@ pipeline {
     						}
     						//use compile goal instead of package if the trigger came from Pull Request. we dont want to package our module for every pull request
     						goal = "compile"
-    					} else if(currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause').size() > 0) { //check if triggered via User 'Build Now'
-    						echo "User Trigger"
-    						buildAll = true
-    					} else { //defaults to Push Trigger
+    					}
+    					else
+//     					 if(currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause').size() > 0) { //check if triggered via User 'Build Now'
+//     						echo "User Trigger"
+//     						buildAll = true
+//     					} else
+    					{ //defaults to Push Trigger
     						echo "Push Trigger"
     						//get changes via changelogs so we can know which module should be built
     						def changeLogSets = currentBuild.changeSets
@@ -76,6 +79,7 @@ pipeline {
     						}else {
     							if(c.indexOf("/") > 1) { //filter all affected module. indexOf("/") means the file is inside a subfolder (module)
     								affectedModules.add(c.substring(0,c.indexOf("/")))
+    								println ${c.substring(0,c.indexOf("/"))}
     							}
 
     						}
