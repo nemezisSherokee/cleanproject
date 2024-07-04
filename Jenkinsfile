@@ -94,13 +94,13 @@ pipeline {
         stage('BuildALL') {
             steps {
                     withMaven {
-                      sh "mvn clean package"
+                      sh "mvn clean package -Ptest"
+                        dir('orderprocessing') {
+                              sh "pwd"
+                              sh 'mvn clean package -Ptest -Denvironment=test -Dspring.profiles.active=test -DargLine="-Dspring.profiles.active=test"'
+                            }
                     } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe reports and FindBugs reports
 
-                    dir('orderprocessing') {
-                          sh "pwd"
-                          sh 'mvn clean package -Ptest -Denvironment=test -Dspring.profiles.active=test -DargLine="-Dspring.profiles.active=test"'
-                        }
             }
         }
 
