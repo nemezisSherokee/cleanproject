@@ -98,7 +98,7 @@ pipeline {
 
                     dir('orderprocessing') {
                           sh "pwd"
-                          sh 'mvn clean package -Ptest -Denvironment=test'
+                          sh 'mvn clean package -Ptest -Denvironment=test -Dspring.profiles.active=test --spring.profiles.active=test'
                         }
             }
         }
