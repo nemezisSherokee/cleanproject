@@ -130,6 +130,7 @@ pipeline {
                     for (module in uniqueModules) {
                         dir(module) {
                             stage("Build Docker Image for ${module}") {
+
                                 def imageName = "nemezis/${module}:${env.BUILD_ID}"
                                  sh "ls"
                                  sh "ls ./target"
@@ -137,7 +138,10 @@ pipeline {
 
                                  //def app1 = docker.build("getintodevops/hellonode")
 
-                                 sh 'docker build -t nemezis/paris/3 .'
+
+                            script {
+                             sh 'docker build -t nemezis/paris/3 .'
+                            }
 
                                  // docker build -t "$JimageName" .
 //                                  def apps = docker.build(imageName, ".")
