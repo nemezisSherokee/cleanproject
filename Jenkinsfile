@@ -67,23 +67,11 @@ pipeline {
             }
         }
 
-        stage('Checkout') {
-            steps {
-                git url: 'https://github.com/nemezisSherokee/cleanproject.git/', branch: 'feature/test-git-hub-jenkins-webhook'
-            }
-        }
-
-        stage('BuildALL') {
-            steps {
-                withMaven {
-                    sh "mvn clean package -Ptest"
-                    dir('orderprocessing') {
-                        sh "pwd"
-                        sh 'mvn clean package -P test'
-                    }
-                } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe reports and FindBugs reports
-            }
-        }
+//         stage('Checkout') {
+//             steps {
+//                 git url: 'https://github.com/nemezisSherokee/cleanproject.git/', branch: 'feature/test-git-hub-jenkins-webhook'
+//             }
+//         }
 
         stage('Test') {
             steps {
