@@ -80,7 +80,10 @@ pipeline {
         stage('Test') {
             steps {
                 withMaven {
-                    sh "mvn clean test"
+                    sh "mvn clean package"
+                    def imageName = "${module}:${env.BUILD_ID}-SNAPSHOT"
+                    def app = docker.build(imageName, ".")
+
                 } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe reports and FindBugs reports
             }
         }
@@ -128,6 +131,9 @@ pipeline {
                         dir(module) {
                             stage("Build Docker Image for ${module}") {
                                 def imageName = "${module}:${env.BUILD_ID}-SNAPSHOT"
+                                 sh "ls"
+                                 sh "ls /.target"
+                                 sh "ls -l"
                                 def app = docker.build(imageName, ".")
                                 docker.withRegistry('https://index.docker.io/v1/', 'DockerCredentials') {
                                     app.push()
