@@ -21,6 +21,8 @@ pipeline {
         registry = "YourDockerhubAccount/YourRepository"
         def dockerHome = tool 'docker'
         PATH = "${dockerHome}/bin:${env.PATH}"
+        DockerCredentials = credentials('DockerCredentials')
+
     }
 
     stages {
