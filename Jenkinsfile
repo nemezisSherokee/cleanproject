@@ -31,6 +31,10 @@ pipeline {
                 script {
                     def changes = []
                     sh 'docker ps'
+                    def imageName0 = "nemezis/kamdoum:${env.BUILD_ID}"
+                    //sh 'docker build -t nemezis/paris:3 .'
+                    sh 'docker -t "${imageName0}" .'
+
                     if (env.CHANGE_ID) { // Check if triggered via Pull Request
                         echo "Pull Request Trigger"
                         // Get changes via git diff to know which module should be built
@@ -136,7 +140,7 @@ pipeline {
                                 def imageName = "nemezis/${module}:${env.BUILD_ID}"
                             script {
                                 //sh 'docker build -t nemezis/paris:3 .'
-                                dockerImage = docker.build "${imageName}:latest"
+                                sh 'docker -t "${imageName}:latest" .'
                                   // Use Jenkins credentials for Docker Hub login
                                  withCredentials([usernamePassword(credentialsId: DockerCredentials, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                                      sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
