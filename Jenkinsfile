@@ -132,8 +132,8 @@ pipeline {
                                  sh "ls"
                                  sh "ls ./target"
                                  sh "ls -l"
-                                 docker build -t "$JimageName" .
-                                // def app = docker.build(imageName, ".")
+                                 // docker build -t "$JimageName" .
+                                 def app = docker.build(imageName, ".")
                                 sh "ls ./target"
 
                                 docker.withRegistry('https://index.docker.io/v1/', 'DockerCredentials') {
