@@ -1,69 +1,69 @@
 spring:
   application:
-    name: ${SPRING_APPLICATION_NAME}
+    name: ${SPRING_APPLICATION_NAME:orderprocessing}
   rabbitmq:
-    host: ${RABBITMQ_HOST}
-    port: ${RABBITMQ_PORT}
-    username: ${RABBITMQ_USERNAME}
-    password: ${RABBITMQ_PASSWORD}
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
   kafka:
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
     consumer:
-      group-id: ${KAFKA_CONSUMER_GROUP_ID}
+      group-id: ${KAFKA_CONSUMER_GROUP_ID:myGroup}
   datasource:
-    url: ${DATASOURCE_URL}
-    username: ${DATASOURCE_USERNAME}
-    password: ${DATASOURCE_PASSWORD}
-    driver-class-name: ${DATASOURCE_DRIVER_CLASS_NAME}
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/postgreslearning}
+    username: ${DATASOURCE_USERNAME:postgreslearning}
+    password: ${DATASOURCE_PASSWORD:postgreslearning}
+    driver-class-name: ${DATASOURCE_DRIVER_CLASS_NAME:org.postgresql.Driver}
   cache:
-    type: ${CACHE_TYPE}
+    type: ${CACHE_TYPE:redis}
   jpa:
     hibernate:
-      ddl-auto: ${JPA_HIBERNATE_DDL_AUTO}
-    show-sql: ${JPA_SHOW_SQL}
-    generate-ddl: ${JPA_GENERATE_DDL}
+      ddl-auto: ${JPA_HIBERNATE_DDL_AUTO:update}
+    show-sql: ${JPA_SHOW_SQL:true}
+    generate-ddl: ${JPA_GENERATE_DDL:true}
     properties:
       hibernate:
-        dialect: ${JPA_HIBERNATE_DIALECT}
+        dialect: ${JPA_HIBERNATE_DIALECT:org.hibernate.dialect.PostgreSQLDialect}
   data:
     redis:
-      host: ${REDIS_HOST}
-      port: ${REDIS_PORT}
-      password: ${REDIS_PASSWORD}
-      connect-timeout: ${REDIS_CONNECT_TIMEOUT}
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:redis}
+      connect-timeout: ${REDIS_CONNECT_TIMEOUT:60000}
 
 management:
   endpoints:
     web:
       exposure:
-        include: ${MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE}
-      base-path: ${MANAGEMENT_ENDPOINTS_WEB_BASE_PATH}
+        include: ${MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE:health,info,metrics,prometheus}
+      base-path: ${MANAGEMENT_ENDPOINTS_WEB_BASE_PATH:/}
       path-mapping:
-        prometheus: ${MANAGEMENT_ENDPOINTS_WEB_PATH_MAPPING_PROMETHEUS}
+        prometheus: ${MANAGEMENT_ENDPOINTS_WEB_PATH_MAPPING_PROMETHEUS:metrics}
   metrics:
     tags:
-      application: ${MANAGEMENT_METRICS_TAGS_APPLICATION}
+      application: ${MANAGEMENT_METRICS_TAGS_APPLICATION:OrderService}
   endpoint:
     health:
-      enabled: ${MANAGEMENT_ENDPOINT_HEALTH_ENABLED}
-      show-details: ${MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS}
+      enabled: ${MANAGEMENT_ENDPOINT_HEALTH_ENABLED:true}
+      show-details: ${MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS:always}
   prometheus:
     metrics:
       export:
-        enabled: ${MANAGEMENT_PROMETHEUS_METRICS_EXPORT_ENABLED}
+        enabled: ${MANAGEMENT_PROMETHEUS_METRICS_EXPORT_ENABLED:true}
 
 server:
-  port: ${SERVER_PORT}
+  port: ${SERVER_PORT:8082}
 
 eureka:
   instance:
-    prefer-ip-address: ${EUREKA_INSTANCE_PREFER_IP_ADDRESS}
+    prefer-ip-address: ${EUREKA_INSTANCE_PREFER_IP_ADDRESS:true}
   client:
-    fetch-registry: ${EUREKA_CLIENT_FETCH_REGISTRY}
-    register-with-eureka: ${EUREKA_CLIENT_REGISTER_WITH_EUREKA}
+    fetch-registry: ${EUREKA_CLIENT_FETCH_REGISTRY:true}
+    register-with-eureka: ${EUREKA_CLIENT_REGISTER_WITH_EUREKA:true}
     service-url:
-      defaultZone: ${EUREKA_SERVER_ADDRESS}
+      defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}
 
 logging:
   file:
-    name: ${LOGGING_FILE_NAME}
+    name: ${LOGGING_FILE_NAME:./.apps/logstash/order-processing-service/logs/order-processing-service.log}
