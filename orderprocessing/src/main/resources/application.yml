@@ -66,4 +66,4 @@ eureka:
 
 logging:
   file:
-    name: ${LOGGING_FILE_NAME:./.apps/logstash/order-processing-service/logs/order-processing-service.log}
+    name: ${./.apps/logstash/order-processing-service/logs/order-processing-service.log}
