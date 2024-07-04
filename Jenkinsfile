@@ -31,9 +31,9 @@ pipeline {
                 script {
                     def changes = []
                     sh 'docker ps'
+
                     def imageName0 = "nemezis/kamdoum:${env.BUILD_ID}"
-                    //sh 'docker build -t nemezis/paris:3 .'
-                    sh 'docker -t "${imageName0}" .'
+                    sh 'docker build -t ${imageName0} .'
 
                     if (env.CHANGE_ID) { // Check if triggered via Pull Request
                         echo "Pull Request Trigger"
