@@ -2,7 +2,7 @@ pipeline {
     agent any
 
         tools {
-            maven 'Maven 3.2.5'
+            maven 'maven-apache'
         }
 
 //     agent {
