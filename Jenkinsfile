@@ -8,7 +8,7 @@ pipeline {
 
     tools {
         maven 'maven-apache'
-        docker 'docker'
+        dockerTool 'docker'
     }
 
     environment {
