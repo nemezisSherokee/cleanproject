@@ -130,19 +130,18 @@ pipeline {
                     for (module in uniqueModules) {
                         dir(module) {
                             stage("Build Docker Image for ${module}") {
-                                def imageName = "${module}:${env.BUILD_ID}-SNAPSHOT"
+                                def imageName = "nemezis/${module}:${env.BUILD_ID}-SNAPSHOT"
                                  sh "ls"
                                  sh "ls ./target"
                                  sh "ls -l"
                                  // docker build -t "$JimageName" .
-                                 //def app = docker.build(imageName, ".")
+                                 def apps = docker.build(imageName, ".")
                                 sh "ls ./target"
 
 //                                 docker.withRegistry('https://index.docker.io/v1/', 'DockerCredentials') {
 //                                     app.push()
 //                                 }
-
-                                docker.withRegistry('docker.io/', 'DockerCredentials') {
+                                docker.withRegistry('https://docker.io/', 'DockerCredentials') {
                                     def app = docker.build(imageName)
                                     // app.push()
                                 }
