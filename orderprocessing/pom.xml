@@ -153,9 +153,17 @@
         <profile>
             <id>test</id>
         </profile>
-        <profile>docker</profile>
-        <profile>local</profile>
-        <profile>kubernetes</profile>
-        <profile>h2</profile>
+        <profile>
+            <id>docker</id>
+        </profile>
+        <profile>
+            <id>local</id>
+        </profile>
+        <profile>
+            <id>kubernetes</id>
+        </profile>
+        <profile>
+            <id>h2</id>
+        </profile>
     </profiles>
 </project>
