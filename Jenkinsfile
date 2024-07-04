@@ -80,6 +80,7 @@ pipeline {
 
     						}
     					}
+    					println "Affected Modules: ${affectedModules}"
 
     				}
     			}
