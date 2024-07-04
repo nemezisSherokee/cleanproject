@@ -7,15 +7,15 @@ pipeline {
     }
 
     environment {
-        MAVEN_OPTS = '-Dmaven.repo.local=/root/.m2/repository'
-        DOCKER_HUB_REPO = 'nemezis/testcleanproject'
+        //MAVEN_OPTS = '-Dmaven.repo.local=/root/.m2/repository'
+        //DOCKER_HUB_REPO = 'nemezis/testcleanproject'
         //DOCKERHUB_AUTH = credentials('DockerHubCredentials')
 //         MYSQL_AUTH= credentials('MYSQL_AUTH')
 //         IMAGE_NAME= 'paymybuddy'
 //         IMAGE_TAG= 'latest'
 //         HOSTNAME_DEPLOY_STAGING = "34.230.2.252"
 //         HOSTNAME_DEPLOY_PROD = "54.145.64.29"
-
+//06 63 63 02 13
     }
 
     stages {
