@@ -142,7 +142,7 @@ pipeline {
 //                                     app.push()
 //                                 }
                                 docker.withRegistry('https://docker.io/', 'DockerCredentials') {
-                                    def app = docker.build(imageName)
+                                    def app = docker.build(imageName, ".")
                                     // app.push()
                                 }
                                 sh "ls ./target"
