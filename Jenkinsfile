@@ -14,7 +14,7 @@ pipeline {
         // Define the goal (e.g., install, compile, package)
         goal = "package"
         profile = "test"
-        BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
+        // BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
         BRANCH_NAME = "${GIT_BRANCH.split('/').size() > 1 ? GIT_BRANCH.split('/')[1..-1].join('/') : GIT_BRANCH}"
 
     }
