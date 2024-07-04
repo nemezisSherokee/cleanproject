@@ -152,6 +152,12 @@
     <profiles>
         <profile>
             <id>test</id>
+            <activation>
+                <property>
+                    <name>environment</name>
+                    <value>test</value>
+                </property>
+            </activation>
         </profile>
         <profile>
             <id>docker</id>

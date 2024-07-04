@@ -98,7 +98,7 @@ pipeline {
 
                     dir('orderprocessing') {
                           sh "pwd"
-                          sh 'mvn clean package -Ptest'
+                          sh 'mvn clean package -Ptest -Denvironment=test'
                         }
             }
         }
@@ -106,7 +106,7 @@ pipeline {
         stage('Test') {
             steps {
                                     withMaven {
-                                      sh "mvn clean test -Ptest"
+                                      sh "mvn clean test"
                                     } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe reports and FindBugs reports
 
             }
