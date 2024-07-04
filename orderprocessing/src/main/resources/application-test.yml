@@ -1,0 +1,65 @@
+spring:
+  application:
+    name: orderprocessing
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: myGroup
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgreslearning
+    username: postgreslearning
+    password: postgreslearning
+    driver-class-name: org.postgresql.Driver
+  cache:
+    type: redis
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    generate-ddl: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: redis
+      connect-timeout: 60000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+      base-path: /
+      path-mapping:
+        prometheus: "metrics"
+  metrics:
+    tags:
+      application: "OrderService"
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+server:
+  port: 8082
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}
