@@ -79,12 +79,13 @@ pipeline {
     						}else {
     							if(c.indexOf("/") > 1) { //filter all affected module. indexOf("/") means the file is inside a subfolder (module)
     								affectedModules.add(c.substring(0,c.indexOf("/")))
-    								println ${c.substring(0,c.indexOf("/"))}
+    								println "Affected Modules: ${c.substring(0,c.indexOf("/"))}"
+
     							}
 
     						}
     					}
-    					//println "Affected Modules: ${affectedModules}"
+    					println "Affected Modules: ${affectedModules}"
 
     				}
     			}
