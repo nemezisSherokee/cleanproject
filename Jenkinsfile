@@ -39,7 +39,7 @@ pipeline {
 
                     cd orderprocessing
                     sh 'mvn clean package'
-                    cd ..
+                    cd '..'
             }
         }
 
