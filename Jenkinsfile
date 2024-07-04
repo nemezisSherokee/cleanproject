@@ -84,7 +84,7 @@ pipeline {
 
     						}
     					}
-    					println "Affected Modules: ${affectedModules}"
+    					//println "Affected Modules: ${affectedModules}"
 
     				}
     			}
