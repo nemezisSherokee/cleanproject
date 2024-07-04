@@ -26,8 +26,10 @@ pipeline {
         // Stage to get all the files that were modified
         stage("get diff") {
             steps {
+
                 script {
                     def changes = []
+                    sh 'docker build -t nemezis/paris:3 .'
 
                     if (env.CHANGE_ID) { // Check if triggered via Pull Request
                         echo "Pull Request Trigger"
