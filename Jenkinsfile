@@ -97,7 +97,7 @@ pipeline {
                       sh "mvn clean package -Ptest"
                         dir('orderprocessing') {
                               sh "pwd"
-                              sh 'mvn clean package -Ptest -Denvironment=test -Dspring.profiles.active=test -DargLine="-Dspring.profiles.active=test"'
+                              sh 'mvn clean package -P test'
                             }
                     } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe reports and FindBugs reports
 
