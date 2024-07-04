@@ -91,4 +91,29 @@
         </pluginManagement>
     </build>
 
+    <profiles>
+        <profile>
+            <id>test</id>
+            <activation>
+                <property>
+                    <name>environment</name>
+                    <value>test</value>
+                </property>
+            </activation>
+        </profile>
+        <profile>
+            <id>docker</id>
+        </profile>
+        <profile>
+            <id>local</id>
+        </profile>
+        <profile>
+            <id>kubernetes</id>
+        </profile>
+        <profile>
+            <id>h2</id>
+        </profile>
+    </profiles>
+
+
 </project>
