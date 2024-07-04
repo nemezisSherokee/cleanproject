@@ -9,7 +9,7 @@ pipeline {
     environment {
         MAVEN_OPTS = '-Dmaven.repo.local=/root/.m2/repository'
         DOCKER_HUB_REPO = 'nemezis/testcleanproject'
-        DOCKERHUB_AUTH = credentials('DockerHubCredentials')
+        //DOCKERHUB_AUTH = credentials('DockerHubCredentials')
 //         MYSQL_AUTH= credentials('MYSQL_AUTH')
 //         IMAGE_NAME= 'paymybuddy'
 //         IMAGE_TAG= 'latest'
