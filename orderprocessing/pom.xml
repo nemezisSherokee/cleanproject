@@ -146,6 +146,16 @@
                 <version>3.1.0</version>
             </plugin>
         </plugins>
+
     </build>
 
+    <profiles>
+        <profile>
+            <id>test</id>
+        </profile>
+        <profile>docker</profile>
+        <profile>local</profile>
+        <profile>kubernetes</profile>
+        <profile>h2</profile>
+    </profiles>
 </project>
