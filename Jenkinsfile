@@ -18,11 +18,10 @@ pipeline {
         profile = "test"
         // BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
         BRANCH_NAME = "${GIT_BRANCH.split('/').size() > 1 ? GIT_BRANCH.split('/')[1..-1].join('/') : GIT_BRANCH}"
-        registry = "YourDockerhubAccount/YourRepository"
         def dockerHome = tool 'docker'
         PATH = "${dockerHome}/bin:${env.PATH}"
-        DockerCredentials = credentials('DockerCredentials')
-
+        DockerCredentials = 'DockerCredentials'
+        def docker = tool 'docker'
     }
 
     stages {

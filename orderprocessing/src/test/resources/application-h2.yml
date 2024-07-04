@@ -3,7 +3,7 @@ spring:
     url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false;DATABASE_TO_UPPER=FALSE;DATABASE_TO_LOWER=TRUE;
     driverClassName: org.h2.Driver
     username:
-    password: oldddddsshgs
+    password: oldddddsshgsd
 
   jpa:
     hibernate:
