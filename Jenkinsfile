@@ -135,11 +135,13 @@ pipeline {
                                  sh "ls ./target"
                                  sh "ls -l"
 
-                                 def app1 = docker.build("getintodevops/hellonode")
+                                 //def app1 = docker.build("getintodevops/hellonode")
+
+                                 sh 'docker build -t nemezis/paris/3 .'
 
                                  // docker build -t "$JimageName" .
 //                                  def apps = docker.build(imageName, ".")
-//                                 sh "ls ./target"
+                                 sh "ls ./target"
 
 //                                 docker.withRegistry('https://index.docker.io/v1/', 'DockerCredentials') {
 //                                     app.push()
