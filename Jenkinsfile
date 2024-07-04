@@ -37,7 +37,9 @@ pipeline {
                       sh "mvn clean package"
                     } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe reports and FindBugs reports
 
+                    cd orderprocessing
                     sh 'mvn clean package'
+                    cd ..
             }
         }
 
