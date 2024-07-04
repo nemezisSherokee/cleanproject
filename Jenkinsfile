@@ -134,27 +134,24 @@ pipeline {
                             stage("Build Docker Image for ${module}") {
 
                                 def imageName = "nemezis/${module}:${env.BUILD_ID}"
-                                 sh "ls"
-                                 sh "ls ./target"
-                                 sh "ls -l"
-                                 sh "cat Dockerfile"
-
-                                 //def app1 = docker.build("getintodevops/hellonode")
-
-
                             script {
-                             sh 'docker build -t nemezis/paris:3 .'
-                                 // docker build -t "$JimageName" .
-//                                  def apps = docker.build(imageName, ".")
-                                 sh "ls ./target"
+                                //sh 'docker build -t nemezis/paris:3 .'
+                                dockerImage = docker.build "${imageName}:latest"
+                                  // Use Jenkins credentials for Docker Hub login
+                                 withCredentials([usernamePassword(credentialsId: DockerCredentials, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                                     sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+
+                                     // Push the image
+                                     sh "docker push ${imageName}"
+                                 }
 
 //                                 docker.withRegistry('https://index.docker.io/v1/', 'DockerCredentials') {
 //                                     app.push()
 //                                 }
-                                docker.withRegistry('https://registry.hub.docker.com', 'DockerCredentials') {
-                                    def app = docker.build(imageName, ".")
-                                    // app.push()
-                                }
+//                                 docker.withRegistry('https://registry.hub.docker.com', 'DockerCredentials') {
+//                                     def app = docker.build(imageName, ".")
+//                                     // app.push()
+//                                 }
                                 sh "ls ./target"
                             }
 
