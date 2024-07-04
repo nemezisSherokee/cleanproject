@@ -20,16 +20,12 @@ pipeline {
         BRANCH_NAME = "${GIT_BRANCH.split('/').size() > 1 ? GIT_BRANCH.split('/')[1..-1].join('/') : GIT_BRANCH}"
         registry = "YourDockerhubAccount/YourRepository"
         def dockerHome = tool 'docker'
-        env.PATH="${dockerHome}/bin:${env.PATH}"
+        env.PATH = "${dockerHome}/bin:${env.PATH}"
     }
 
     stages {
         // Stage to get all the files that were modified
         stage("get diff") {
-
-        steps {
-                    sh 'docker ps'
-        }
             steps {
 
                 script {
