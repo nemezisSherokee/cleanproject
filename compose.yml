@@ -154,15 +154,40 @@ services:
     volumes:
       - ./.kafka/data:/var/lib/kafka/data
 
-  jenkins:
-    image: jenkins/jenkins:lts
-    container_name: jenkins
+#  jenkins:
+#    image: jenkins/jenkins:lts
+#    container_name: jenkins
+#    ports:
+#      - "9080:8080"
+#      - "50000:50000"
+#    volumes:
+#      - ./.jenkins_home:/var/jenkins_home
+#      - /var/run/docker.sock:/var/run/docker.sock
+
+  jenkins1:
+    build:
+      dockerfile: Dockerfile
+      context: ./jenkins/
+    container_name: jenkins1
+    restart: always
+    privileged: true
+    user: root
+
+    healthcheck:
+      test: curl -s https://localhost:9081 >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
+      interval: 1m
+      timeout: 5s
+      retries: 3
     ports:
-      - "9080:8080"
-      - "50000:50000"
+      - '9087:8080'
+    networks:
+      - app-network
     volumes:
-      - ./.jenkins_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
+      - './.jenkins_home:/var/jenkins_home'
+      - '/etc/localtime:/etc/localtime:ro'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - '~/.ssh:/var/jenkins_home/.ssh'
+      - '~/.m2:/root/.m2'
 
 networks:
   app-network:
