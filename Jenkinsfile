@@ -10,6 +10,7 @@ pipeline {
             maven 'maven-apache'
         }
 
+
 //     agent {
 //         dockerfile {
 //             filename 'agent/Dockerfile'
@@ -98,7 +99,7 @@ pipeline {
 
                     dir('orderprocessing') {
                           sh "pwd"
-                          sh 'mvn clean package -Ptest -Denvironment=test -Dspring.profiles.active=test '
+                          sh 'mvn clean package -Ptest -Denvironment=test -Dspring.profiles.active=test -DargLine="-Dspring.profiles.active=test"'
                         }
             }
         }
