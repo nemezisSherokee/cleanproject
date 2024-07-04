@@ -87,7 +87,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/nemezisSherokee/cleanproject.git/', branch: 'main'
+                git url: 'https://github.com/nemezisSherokee/cleanproject.git/', branch: 'feature/test-git-hub-jenkins-webhook'
             }
         }
 
