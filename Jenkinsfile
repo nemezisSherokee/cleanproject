@@ -110,5 +110,31 @@ pipeline {
                 }
             }
         }
+
+        stage('Build and Push Docker Image') {
+            when {
+                expression {
+                    return env.BRANCH_NAME.startsWith('feature') &&  affectedModules.size() > 0
+                }
+            }
+            steps {
+                script {
+                    def uniqueModules = affectedModules.unique()
+                    for (module in uniqueModules) {
+                        dir(module) {
+                            stage("Build Docker Image for ${module}") {
+                                def imageName = "${module}:${env.BUILD_ID}-SNAPSHOT"
+                                def app = docker.build(imageName, ".")
+                                docker.withRegistry('https://index.docker.io/v1/', 'DockerCredentials') {
+                                    app.push()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
     }
 }

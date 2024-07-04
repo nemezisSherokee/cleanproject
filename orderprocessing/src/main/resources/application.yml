@@ -32,7 +32,6 @@ spring:
       port: ${REDIS_PORT}
       password: ${REDIS_PASSWORD}
       connect-timeout: ${REDIS_CONNECT_TIMEOUT}
-
 management:
   endpoints:
     web:
