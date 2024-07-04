@@ -59,7 +59,6 @@ eureka:
   instance:
     prefer-ip-address: true
   client:
-
     fetch-registry: false
     register-with-eureka: false
     service-url:
