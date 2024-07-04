@@ -130,9 +130,11 @@ pipeline {
                             stage("Build Docker Image for ${module}") {
                                 def imageName = "${module}:${env.BUILD_ID}-SNAPSHOT"
                                  sh "ls"
-                                 sh "ls /.target"
+                                 sh "ls ./target"
                                  sh "ls -l"
                                 def app = docker.build(imageName, ".")
+                                                                 sh "ls ./target"
+
                                 docker.withRegistry('https://index.docker.io/v1/', 'DockerCredentials') {
                                     app.push()
                                 }
