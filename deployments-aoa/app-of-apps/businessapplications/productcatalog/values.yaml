@@ -1,0 +1,32 @@
+libraries:
+  nameOverride: "productcatalog"
+  fullnameOverride: "productcatalog"
+  environmentVariables:
+    CUSTOM_PRE_OPTS: '--add-opens java.base/java.util=ALL-UNNAMED'
+    EUREKA_CLIENT_REGISTER_WITH_EUREKA: 'false'
+    EUREKA_CLIENT_FETCH_REGISTRY: 'false'
+    CHECK_POSTGRES: false
+    CHECK_KAFKA: false
+    CHECK_RABBITMQ: false
+    CHECK_REDIS: false
+    CHECK_EUREKA_SERVER: false
+    CHECK_REDIS_HOST: 'redis-master'
+
+
+  envBlock:
+    - name: RABBITMQ_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: orders
+          key: RABBITMQ_USERNAME
+    - name: RABBITMQ_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: orders
+          key: RABBITMQ_PASSWORD
+
+  envFromSecrets:
+    - orders
+
+  envFromConfigMap:
+    - orders

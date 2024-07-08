@@ -1,0 +1,5 @@
+librairies:
+  replicaCount: 1
+  imagePullSecrets: []
+  nameOverride: "eureka"
+  fullnameOverride: "eureka"

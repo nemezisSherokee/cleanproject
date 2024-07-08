@@ -1,0 +1,47 @@
+apiVersion: v2
+name: orderprocessing
+description: A Helm chart for Kubernetes
+appVersion: "0.0.1-SNAPPSHOT"
+version: "1"
+
+#dependencies:
+#  - name: libraries
+#    version: 0.0.1
+#    repository: file://../../libraries
+
+dependencies:
+
+  - name: libraries
+    version: 0.0.1-SNAPPSHOT
+    repository: file://../../../libraries/
+#
+#  - name: kafka
+#    repository: https://charts.bitnami.com/bitnami
+#    tags:
+#      - kafka
+#    version: x.x.x
+#  - name: zookeeper
+#    repository: https://charts.bitnami.com/bitnami
+#    tags:
+#      - zookeeper
+#    version: x.x.x
+#  - name: postgresql
+#    repository: https://charts.bitnami.com/bitnami
+#    tags:
+#      - postgresql
+#    version: x.x.x
+#  - name: redis
+#    repository: https://charts.bitnami.com/bitnami
+#    tags:
+#      - redis
+#    version: x.x.x
+#  - name: prometheus
+#    repository: https://charts.bitnami.com/bitnami
+#    tags:
+#      - prometheus
+#    version: x.x.x
+#  - name: grafana
+#    repository: https://charts.bitnami.com/bitnami
+#    tags:
+#      - grafana
+#    version: x.x.x

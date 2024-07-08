@@ -3,15 +3,16 @@ spring:
     name: orderprocessing
   rabbitmq:
     host: rabbitmq
-    port: 5672
+    port: 15672
     username: guest
     password: guest
   kafka:
-    bootstrap-servers: kafka:29092
+#    bootstrap-servers: kafka:29092
+    bootstrap-servers: kafka:9092
     consumer:
       group-id: myGroup
   datasource:
-    url: jdbc:postgresql://postgres:5432/postgreslearning
+    url: jdbc:postgresql://postgresql:5432/postgreslearning
     username: postgreslearning
     password: postgreslearning
     driver-class-name: org.postgresql.Driver

@@ -1,0 +1,81 @@
+infrastructures:
+  kafka:
+    enabled: true
+    destination:
+      namespace: dev
+      server: 'https://kubernetes.default.svc'
+    #    project: cleanproject # will be ignored if projectOverrides is set
+    source:
+      path: deployments-aoa/app-of-apps/infrastructures/kafka
+      repoURL:  'https://github.com/nemezisSherokee/cleanproject.git'
+
+  rabbitmq:
+    enabled: true
+    destination:
+      namespace: dev
+      server: 'https://kubernetes.default.svc'
+    #    project: cleanproject # will be ignored if projectOverrides is set
+    source:
+      path: deployments-aoa/app-of-apps/infrastructures/rabbitmq
+      repoURL:  'https://github.com/nemezisSherokee/cleanproject.git'
+
+  postgresql:
+    enabled: true
+    destination:
+      namespace: dev
+      server: 'https://kubernetes.default.svc'
+    #    project: cleanproject # will be ignored if projectOverrides is set
+    source:
+      path: deployments-aoa/app-of-apps/infrastructures/postgresql
+      repoURL:  'https://github.com/nemezisSherokee/cleanproject.git'
+
+  redis:
+    enabled: true
+    destination:
+      namespace: dev
+      server: 'https://kubernetes.default.svc'
+    #    project: cleanproject # will be ignored if projectOverrides is set
+    source:
+      path: deployments-aoa/app-of-apps/infrastructures/redis
+      repoURL:  'https://github.com/nemezisSherokee/cleanproject.git'
+
+  zookeeper:
+    enabled: true
+    destination:
+      namespace: dev
+      server: 'https://kubernetes.default.svc'
+    #    project: cleanproject # will be ignored if projectOverrides is set
+    source:
+      path: deployments-aoa/app-of-apps/infrastructures/zookeeper
+      repoURL:  'https://github.com/nemezisSherokee/cleanproject.git'
+
+  incubator:
+    enabled: true
+    destination:
+      namespace: dev
+      server: 'https://kubernetes.default.svc'
+    #    project: cleanproject # will be ignored if projectOverrides is set
+    source:
+      path: deployments-aoa/app-of-apps/infrastructures/incubator
+      repoURL:  'https://github.com/nemezisSherokee/cleanproject.git'
+      extraSourceFields: |
+        helm:
+          valueFiles:
+          - secrets-{{ $.Values.envName }}.yaml
+          - secrets.yaml
+
+  configs:
+    enabled: true
+    destination:
+      namespace: dev
+      server: 'https://kubernetes.default.svc'
+    #    project: cleanproject # will be ignored if projectOverrides is set
+    source:
+      path: deployments-aoa/app-of-apps/infrastructures/configs
+      repoURL:  'https://github.com/nemezisSherokee/cleanproject.git'
+      extraSourceFields: |
+        helm:
+          valueFiles:
+          - values-{{ $.Values.envName }}.yaml
+          - values.yaml
+

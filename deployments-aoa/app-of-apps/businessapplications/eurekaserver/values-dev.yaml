@@ -1,0 +1,7 @@
+libraries:
+  replicaCount: 1
+  image:
+    repository: nemezis/eureka:115
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: ""

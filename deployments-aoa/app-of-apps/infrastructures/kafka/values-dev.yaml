@@ -1,0 +1,11 @@
+# Default values for kafka.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+kafka:
+  nameOverride: "kafka"
+  fullnameOverride: "kafka"
+  controller:
+    ## @param controller.replicaCount Number of Kafka controller-eligible nodes
+    ## Ignore this section if running in Zookeeper mode.
+    ##
+    replicaCount: 1

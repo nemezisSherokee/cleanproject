@@ -1,0 +1,3 @@
+zookeeper:
+  nameOverride: "zookeeper"
+  fullnameOverride: "zookeeper"

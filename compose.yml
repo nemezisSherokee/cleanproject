@@ -14,7 +14,7 @@ services:
     networks:
       - app-network
 
-  postgres:
+  postgresql:
     container_name: postgres-container
     image: postgres:14-alpine
     ports:
@@ -78,7 +78,7 @@ services:
 
   productcatalog:
     container_name: productcatalog-container
-    image: productcatalog
+    image: nemezis/productcatalog:latest
     build:
       context: ./productcatalog
       dockerfile: ./Dockerfile
@@ -87,10 +87,17 @@ services:
       - "9081:8080"
     networks:
       - app-network
+    environment:
+      CHECK_POSTGRES: true
+      CHECK_KAFKA: true
+      CHECK_RABBITMQ: true
+      CHECK_REDIS: true
+      CHECK_EUREKA_SERVER: false
+      CHECK_REDIS_HOST: 'redis'
 
   orderprocessing:
     container_name: orderprocessing-container
-    image: orderprocessing
+    image: nemezis/orderprocessing:latest
     build:
       context: ./orderprocessing
       dockerfile: ./Dockerfile
@@ -99,10 +106,17 @@ services:
       - "9082:8080"
     networks:
       - app-network
+    environment:
+      CHECK_POSTGRES: true
+      CHECK_KAFKA: true
+      CHECK_RABBITMQ: true
+      CHECK_REDIS: true
+      CHECK_EUREKA_SERVER: true
+      CHECK_REDIS_HOST: 'redis'
 
   apigateway:
     container_name: apigateway-container
-    image: apigateway
+    image: nemezis/apigateway:latest
     build:
       context: ./apigateway
       dockerfile: ./Dockerfile

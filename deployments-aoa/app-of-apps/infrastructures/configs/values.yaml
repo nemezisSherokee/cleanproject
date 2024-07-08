@@ -1,0 +1,3 @@
+configmap:
+  orders:
+    JPA_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect

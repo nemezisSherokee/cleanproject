@@ -1,0 +1,21 @@
+
+rabbitmq:
+  livenessProbe:
+    enabled: true
+    initialDelaySeconds: 60
+    timeoutSeconds: 30
+    periodSeconds: 30
+    failureThreshold: 16
+    successThreshold: 1
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 60
+    timeoutSeconds: 30
+    periodSeconds: 30
+    failureThreshold: 30
+    successThreshold: 1
+  loadDefinition:
+    enabled: true
+    existingSecret: rabbitmq-definition
+  extraConfiguration: |-
+    management.load_definitions = /app/load_definition.json

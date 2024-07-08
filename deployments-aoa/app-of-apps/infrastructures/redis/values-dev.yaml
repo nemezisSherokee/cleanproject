@@ -1,0 +1,7 @@
+redis:
+  auth:
+    #password: "redis"
+    existingSecret: "orders"
+    existingSecretPasswordKey: "REDIS_PASSWORD"
+  replica:
+    replicaCount: 0

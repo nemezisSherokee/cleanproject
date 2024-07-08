@@ -1,41 +1,85 @@
 #!/bin/bash
 
-while :
-do
-  status_code=$(curl --write-out %{http_code} --silent --output /dev/null http://eurekaserver:8761)
+# Default values for environment variables
+CHECK_POSTGRES=${CHECK_POSTGRES:-true}
+CHECK_KAFKA=${CHECK_KAFKA:-true}
+CHECK_RABBITMQ=${CHECK_RABBITMQ:-true}
+CHECK_REDIS=${CHECK_REDIS:-true}
+CHECK_REDIS_HOST=${CHECK_REDIS_HOST}
+CHECK_EUREKA_SERVER=${CHECK_EUREKA_SERVER:-true}
 
-  echo "Eureka service response: $status_code\n"
+while :; do
 
-  if [ $status_code -eq 200 ]
-  then
+if [ "$CHECK_EUREKA_SERVER" != "false" ]; then
+  while :; do
+    status_code=$(curl --write-out %{http_code} --silent --output /dev/null http://eurekaserver:8761)
+    echo "Eureka service response: $status_code"
 
-	set -eu
+    if [ "$status_code" -eq 200 ]; then
+      break
+    fi
 
-	echo "Checking DB connection ..."
+    echo "Sleeping for 3 seconds ..."
+    sleep 3
+  done
+fi
 
-	i=0
-	until [ $i -ge 10 ]
-	do
-	  nc -z postgres 5432 && break
 
-	  i=$(( i + 1 ))
+    set -eu
 
-	  echo "$i: Waiting for DB 1 second ..."
-	  sleep 1
-	done
+    echo "Checking DB, Kafka, RabbitMQ, Redis connection ..."
 
-	if [ $i -eq 10 ]
-	then
-	  echo "DB connection refused, terminating ..."
-	  exit 1
-	fi
+    i=0
+    while [ "$i" -lt 20 ]; do
+      postgres_up=0
+      kafka_up=0
+      rabbitmq_up=0
+      redis_up=0
 
-	echo "DB is up ..."
+      if [ "$CHECK_POSTGRES" != "false" ]; then
+        postgres_up=$(nc -z postgresql 5432 && echo "0" || echo "1")
+      fi
+      if [ "$CHECK_KAFKA" != "false" ]; then
+        kafka_up=$(nc -z kafka 29092 && echo "0" || echo "1")
+      fi
+      if [ "$CHECK_RABBITMQ" != "false" ]; then
+        rabbitmq_up=$(nc -z rabbitmq 5672 && echo "0" || echo "1")
+      fi
+      if [ "$CHECK_REDIS" != "false" ]; then
+        redis_up=$(nc -z $CHECK_REDIS_HOST 6379 && echo "0" || echo "1")
+      fi
+
+      if [ "$postgres_up" -eq 0 ] && [ "$kafka_up" -eq 0 ] && [ "$rabbitmq_up" -eq 0 ] && [ "$redis_up" -eq 0 ]; then
+        break
+      fi
+
+      if [ "$CHECK_POSTGRES" != "false" ] && [ "$postgres_up" -ne 0 ]; then
+        echo "Postgres is not up."
+      fi
+      if [ "$CHECK_KAFKA" != "false" ] && [ "$kafka_up" -ne 0 ]; then
+        echo "Kafka is not up."
+      fi
+      if [ "$CHECK_RABBITMQ" != "false" ] && [ "$rabbitmq_up" -ne 0 ]; then
+        echo "RabbitMQ is not up."
+      fi
+      if [ "$CHECK_REDIS" != "false" ] && [ "$redis_up" -ne 0 ]; then
+        echo "Redis is not up."
+      fi
+
+      i=$((i + 1))
+      echo "$i: Waiting for services (DB, Kafka, RabbitMQ, Redis) for 1 second ..."
+      sleep 1
+    done
+
+    if [ "$i" -eq 20 ]; then
+      echo "One or more services (DB, Kafka, RabbitMQ, Redis) connection refused, terminating ..."
+      exit 1
+    fi
+
+    echo "All services (DB, Kafka, RabbitMQ, Redis) are up ..."
     java -jar -Dspring.profiles.active=docker app.jar
     break
-  fi
 
-	echo "sleep 3 seconds ..."
-
+  echo "Sleeping for 3 seconds ..."
   sleep 3
 done

@@ -1,0 +1,72 @@
+configmap:
+  orders:
+    RABBITMQ_PORT: 5672
+    KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    KAFKA_CONSUMER_GROUP_ID: myGroup
+    DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+    CACHE_TYPE: redis
+    JPA_HIBERNATE_DDL_AUTO: update
+    JPA_SHOW_SQL: "true"
+    JPA_GENERATE_DDL: "true"
+    REDIS_HOST: localhost
+    REDIS_PORT: 6379
+    REDIS_CONNECT_TIMEOUT: 60000
+    MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: health,info,metrics,prometheus
+    MANAGEMENT_ENDPOINTS_WEB_BASE_PATH: /
+    MANAGEMENT_ENDPOINTS_WEB_PATH_MAPPING_PROMETHEUS: metrics
+    MANAGEMENT_METRICS_TAGS_APPLICATION: OrderService
+    MANAGEMENT_ENDPOINT_HEALTH_ENABLED: "true"
+    MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS: always
+    MANAGEMENT_PROMETHEUS_METRICS_EXPORT_ENABLED: "true"
+    SERVER_PORT: 8082
+    EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+    EUREKA_CLIENT_FETCH_REGISTRY: "true"
+    EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
+    EUREKA_SERVER_ADDRESS: http://eureka:8761/eureka
+    LOGGING_FILE_NAME: ./.apps/logstash/order-processing-service/logs/order-processing-service.log
+#  rabbitmq-conf:
+#    rabbitmq.conf: |
+#      # ....
+#      management.load_definitions = /etc/rabbitmq/definitions.json
+#  rabbitmq-definition:
+#    rabbitmq-definition.json: |
+#      {
+#        "permissions": [
+#                           {
+#                             "user": "guest",
+#                             "vhost": "/",
+#                             "configure": ".*",
+#                             "write": ".*",
+#                             "read": ".*"
+#                           }
+#                         ],
+#        "users": [{
+#                        "name": "guest",
+#                        "password_hash": "SFSBei+xKWMlLBcIyi1OaTovEEhfMTbX9Jqe7t11f/9vS0w0",
+#                        "tags": "administrator"
+#                      }],
+#        "policies: [],
+#        "vhosts": [
+#            {
+#              "name": "/"
+#            }
+#          ],
+#        "queues": [
+#            {
+#              "name": "myQueue",
+#              "vhost": "/",
+#              "durable": false,
+#              "auto_delete": false,
+#              "arguments": {}
+#            },
+#            {
+#              "name": "wsQueue",
+#              "vhost": "/",
+#              "durable": false,
+#              "auto_delete": false,
+#              "arguments": {}
+#            }
+#          ]
+#      }
+#
+#

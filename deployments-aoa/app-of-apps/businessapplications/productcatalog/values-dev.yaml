@@ -1,0 +1,7 @@
+replicaCount: 2
+libraries:
+  image:
+    repository: nemezis/productcatalog:latest
+  libraries:
+    image:
+      repository: nemezis/orderprocessing:latest

@@ -14,3 +14,50 @@ https://stackoverflow.com/questions/50916740/docker-command-not-found-in-local-j
 
 
 
+
+start docker
+minikube start
+minikube dashboard
+minikube image rm  nemezis/orderprocessing:latest
+
+
+Installing ArgoCD: https://medium.com/@mehmetodabashi/installing-argocd-on-minikube-and-deploying-a-test-application-caa68ec55fbf
+kubectl create ns argocd
+kubectl create ns dev
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.5.8/manifests/install.yaml
+kubectl get all -n argocd
+
+kubectl port-forward svc/argocd-server -n argocd 7070:443
+Getting initial Password:
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+argocd login argocd login localhost:7070
+
+helm template dev
+helm dependency update
+helm template --values values-dev.yaml --values values.yaml . | grep image
+helm template -f values-dev.yaml -f values.yaml . > .template.yaml
+helm dependency update . && helm template -f values-dev.yaml -f values.yaml . | grep image
+helm dependency update ../productcatalog && helm template -f values-dev.yaml -f values.yaml ../productcatalog | grep image
+for app in $(argocd app list -o name); do argocd app delete $app --yes; done
+minikube image rm  nemezis/orderprocessing:latest
+
+argocd app create dev3 \
+    --dest-namespace argocd \
+    --dest-server https://kubernetes.default.svc \
+    --repo https://github.com/nemezisSherokee/cleanproject.git \
+    --revision feature/deployment-apps-of-apps \
+    --path deployments-aoa/app-of-apps/dev
+
+argocd app create apps \
+    --dest-namespace argocd \
+    --dest-server https://kubernetes.default.svc \
+    --repo https://github.com/argoproj/argocd-example-apps.git \
+    --path apps
+
+Helm Secrets:
+helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.0
+brew install sops
+brew install gnupg
+
+https://blog.gitguardian.com/how-to-handle-secrets-in-helm/
+
