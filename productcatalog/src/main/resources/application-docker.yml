@@ -3,12 +3,12 @@ spring:
     name: productcatalog
   rabbitmq:
     host: rabbitmq
-    port: 15672
+    port: ${RABBIT_PORT:5672}
     username: guest
     password: guest
   kafka:
 #    bootstrap-servers: kafka:29092
-    bootstrap-servers: kafka:9092
+    bootstrap-servers: kafka:${KAFKA_PORT:9092}
     consumer:
       group-id: myGroup
 
@@ -19,7 +19,7 @@ eureka:
   instance:
     prefer-ip-address: true
   client:
-    fetch-registry: true
-    register-with-eureka: true
+    fetch-registry: ${EUREKA_CLIENT_FETCH_REGISTRY}
+    register-with-eureka: ${EUREKA_CLIENT_REGISTER_WITH_EUREKA}
     service-url:
-      defaultZone: ${EUREKA_SERVER_ADDRESS:http://eurekaserver:8761/eureka}
+      defaultZone: ${EUREKA_SERVER_ADDRESS:http://eurekaserver:${EUREKA_PORT:8080}/eureka}

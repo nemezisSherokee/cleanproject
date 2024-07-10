@@ -11,6 +11,11 @@ libraries:
     CHECK_REDIS: false
     CHECK_EUREKA_SERVER: false
     CHECK_REDIS_HOST: 'redis-master'
+    KAFKA_PORT:  9092
+    RABBIT_PORT:  15672
+    REDIS_PORT:  6379
+    POSTGRES_PORT:  5432
+    EUREKA_PORT:  8080
 
 
   envBlock:

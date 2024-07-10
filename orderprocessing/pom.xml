@@ -8,7 +8,7 @@
         <version>3.3.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
+    <groupId>house.learning.cleanproject</groupId>
     <artifactId>orderprocessing</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>orderprocessing</name>
@@ -98,7 +98,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.example</groupId>
+            <groupId>house.learning.cleanproject</groupId>
             <artifactId>infrastructures</artifactId>
         </dependency>
     </dependencies>
@@ -112,7 +112,7 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>com.example</groupId>
+                <groupId>house.learning.cleanproject</groupId>
                 <artifactId>infrastructures</artifactId>
                 <version>${com-example.version}</version>
                 <type>jar</type>

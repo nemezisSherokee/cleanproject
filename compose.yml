@@ -71,8 +71,7 @@ services:
       dockerfile: ./Dockerfile
     restart: always
     ports:
-      - "9761:8761"
-      - "8761:8761"
+      - "8761:8080"
     networks:
       - app-network
 
@@ -92,8 +91,15 @@ services:
       CHECK_KAFKA: true
       CHECK_RABBITMQ: true
       CHECK_REDIS: true
-      CHECK_EUREKA_SERVER: false
+      CHECK_EUREKA_SERVER: true
       CHECK_REDIS_HOST: 'redis'
+      KAFKA_PORT:  29092
+      RABBIT_PORT:  5672
+      REDIS_PORT:  6379
+      POSTGRES_PORT:  5432
+      EUREKA_PORT:  8080
+      EUREKA_CLIENT_FETCH_REGISTRY: 'true'
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: 'true'
 
   orderprocessing:
     container_name: orderprocessing-container
@@ -111,8 +117,15 @@ services:
       CHECK_KAFKA: true
       CHECK_RABBITMQ: true
       CHECK_REDIS: true
-      CHECK_EUREKA_SERVER: true
+      CHECK_EUREKA_SERVER: false
       CHECK_REDIS_HOST: 'redis'
+      KAFKA_PORT:  29092
+      RABBIT_PORT:  5672
+      REDIS_PORT:  6379
+      POSTGRES_PORT:  5432
+      EUREKA_PORT:  8080
+      EUREKA_CLIENT_FETCH_REGISTRY: 'false'
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: 'false'
 
   apigateway:
     container_name: apigateway-container
@@ -125,6 +138,20 @@ services:
       - "9001:8080"
     networks:
       - app-network
+    environment:
+      CHECK_POSTGRES: true
+      CHECK_KAFKA: true
+      CHECK_RABBITMQ: true
+      CHECK_REDIS: true
+      CHECK_EUREKA_SERVER: true
+      CHECK_REDIS_HOST: 'redis'
+      KAFKA_PORT:  29092
+      RABBIT_PORT:  5672
+      REDIS_PORT:  6379
+      POSTGRES_PORT:  5432
+      EUREKA_PORT:  8080
+      EUREKA_CLIENT_FETCH_REGISTRY: 'false'
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: 'false'
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.3.2

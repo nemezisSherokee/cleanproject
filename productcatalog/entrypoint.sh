@@ -8,21 +8,27 @@ CHECK_REDIS=${CHECK_REDIS:-true}
 CHECK_REDIS_HOST=${CHECK_REDIS_HOST}
 CHECK_EUREKA_SERVER=${CHECK_EUREKA_SERVER:-true}
 
+KAFKA_PORT=${KAFKA_PORT}
+REDIS_PORT=${REDIS_PORT}
+RABBIT_PORT=${RABBIT_PORT}
+POSTGRES_PORT=${POSTGRES_PORT}
+EUREKA_PORT=${EUREKA_PORT}
+
 while :; do
 
-if [ "$CHECK_EUREKA_SERVER" != "false" ]; then
-  while :; do
-    status_code=$(curl --write-out %{http_code} --silent --output /dev/null http://eurekaserver:8761)
-    echo "Eureka service response: $status_code"
+    if [ "$CHECK_EUREKA_SERVER" != "false" ]; then
+      while :; do
+        status_code=$(curl --write-out %{http_code} --silent --output /dev/null http://eurekaserver:$EUREKA_PORT)
+        echo "Eureka service response: $status_code"
 
-    if [ "$status_code" -eq 200 ]; then
-      break
+        if [ "$status_code" -eq 200 ]; then
+          break
+        fi
+
+        echo "Sleeping for 3 seconds ..."
+        sleep 3
+      done
     fi
-
-    echo "Sleeping for 3 seconds ..."
-    sleep 3
-  done
-fi
 
 
     set -eu
@@ -37,16 +43,16 @@ fi
       redis_up=0
 
       if [ "$CHECK_POSTGRES" != "false" ]; then
-        postgres_up=$(nc -z postgresql 5432 && echo "0" || echo "1")
+        postgres_up=$(nc -z postgresql $POSTGRES_PORT && echo "0" || echo "1")
       fi
       if [ "$CHECK_KAFKA" != "false" ]; then
-        kafka_up=$(nc -z kafka 29092 && echo "0" || echo "1")
+        kafka_up=$(nc -z kafka $KAFKA_PORT && echo "0" || echo "1")
       fi
       if [ "$CHECK_RABBITMQ" != "false" ]; then
-        rabbitmq_up=$(nc -z rabbitmq 5672 && echo "0" || echo "1")
+        rabbitmq_up=$(nc -z rabbitmq $RABBIT_PORT && echo "0" || echo "1")
       fi
       if [ "$CHECK_REDIS" != "false" ]; then
-        redis_up=$(nc -z $CHECK_REDIS_HOST 6379 && echo "0" || echo "1")
+        redis_up=$(nc -z $CHECK_REDIS_HOST $REDIS_PORT && echo "0" || echo "1")
       fi
 
       if [ "$postgres_up" -eq 0 ] && [ "$kafka_up" -eq 0 ] && [ "$rabbitmq_up" -eq 0 ] && [ "$redis_up" -eq 0 ]; then
@@ -77,7 +83,7 @@ fi
     fi
 
     echo "All services (DB, Kafka, RabbitMQ, Redis) are up ..."
-    java -jar -Dspring.profiles.active=docker app.jar
+    java -jar -Dspring.profiles.active=docker,redis app.jar
     break
 
   echo "Sleeping for 3 seconds ..."
