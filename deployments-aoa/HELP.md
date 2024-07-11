@@ -23,7 +23,7 @@ The current project deploys the applications on a Kubernetes cluster using the a
       --dest-namespace argocd \
       --dest-server https://kubernetes.default.svc \
       --repo https://github.com/nemezisSherokee/cleanproject.git \
-      --revision feature/deployment-apps-of-apps \
+      --revision feature/arrange-project-description \
       --path deployments-aoa/app-of-apps/dev
     ```
 

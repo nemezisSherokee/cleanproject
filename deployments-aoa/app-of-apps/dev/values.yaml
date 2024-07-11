@@ -30,7 +30,7 @@ default:
     source:
       path: null
       repoURL: null
-      targetRevision: feature/deployment-apps-of-apps
+      targetRevision: feature/arrange-project-description
 
       extraSourceFields: |
         helm:
