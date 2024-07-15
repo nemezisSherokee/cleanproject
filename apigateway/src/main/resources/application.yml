@@ -10,9 +10,9 @@ spring:
         - id: productcatalog
           uri: ${PRODUCT_CATALOG_URI}
           predicates:
-            - Path=/productcatalog/**
+            - Path=**/productcatalog/**
           filters:
-            - RewritePath=/productcatalog/(?<segment>.*), /productcatalog/${segment}
+            - RewritePath=(?<prefix>.*)/productcatalog/(?<segment>.*), ${prefix}/productcatalog/${segment}
 
         - id: orderprocessing
           uri: ${ORDER_PROCESSING_URI}

@@ -11,6 +11,11 @@ spring:
     bootstrap-servers: kafka:${KAFKA_PORT:9092}
     consumer:
       group-id: myGroup
+  r2dbc:
+    url: r2dbc:postgresql://localhost:${POSTGRES_PORT:5432}/postgreslearning
+    username: postgreslearning
+    password: postgreslearning
+    driver-class-name: org.postgresql.Driver
 
 server:
   port: 8080

@@ -10,9 +10,9 @@ spring:
         - id: productcatalog
           uri: http://localhost:8081/
           predicates:
-            - Path=/productcatalog/**
+            - Path=/api/v1.0/productcatalog/**
           filters:
-            - RewritePath=/productcatalog/(?<segment>.*), /productcatalog/${segment}
+            - RewritePath=(?<prefix>.*)/productcatalog/(?<segment>.*), ${prefix}/productcatalog/${segment}
 
         - id: orderprocessing
           uri: http://localhost:8082

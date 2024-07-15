@@ -1,4 +1,7 @@
 spring:
+  sql:
+    init:
+      data-locations: classpath:sql/schema.sql
   application:
     name: productcatalog
   rabbitmq:
@@ -15,9 +18,15 @@ spring:
     username: postgreslearning
     password: postgreslearning
     driver-class-name: org.postgresql.Driver
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgreslearning
+    username: postgreslearning
+    password: postgreslearning
+    driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     show-sql: true
     generate-ddl: true
     properties:
@@ -26,13 +35,13 @@ spring:
 
 
 server:
-  port: 8081
+  port: 8087
 
 eureka:
   instance:
     prefer-ip-address: true
   client:
-    fetch-registry: true
-    register-with-eureka: true
+    fetch-registry: false
+    register-with-eureka: false
     service-url:
       defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8761/eureka}

@@ -1,0 +1,10 @@
+aws:
+#  access: ${AWS_ACCESS:LSIAQAAAAAAVNCBMPNSG}
+  access: ${AWS_ACCESS:secret}
+  secret: ${AWS_SECRET:secrets}
+  account-no: ${AWS_ACCOUNT_NO:12345}
+#  service-end-point: http://localhost.localstack.cloud:4566
+  service-end-point: http://localhost:4566
+  s3:
+    bucket: ${S3_BUCKET:aws-bucket-sns-tutorial}
+    region: ${S3_REGION:eu-central-2}

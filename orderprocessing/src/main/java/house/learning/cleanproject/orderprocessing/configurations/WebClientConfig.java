@@ -18,7 +18,7 @@ public class WebClientConfig {
     @Bean
     public WebClient productcatalogWebClient(WebClient.Builder webClientBuilder) {
         return webClientBuilder.
-                baseUrl("http://productcatalog/productcatalog/api/v1.0").
+                baseUrl("http://productcatalog/api/v1.0/productcatalog").
                 build();
     }
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration>
+    <jdbc>
+        <driver>org.postgresql.Driver</driver>
+        <url>jdbc:postgresql://localhost:5432/postgreslearning</url>
+        <user>postgreslearning</user>
+        <password>postgreslearning</password>
+    </jdbc>
+    <generator>
+        <name>org.jooq.codegen.JavaGenerator</name>
+        <database>
+            <name>org.jooq.meta.postgres.PostgresDatabase</name> <!-- Replace with your database type -->
+            <includes>.*</includes>
+            <excludes></excludes>
+            <inputSchema>postgreslearning</inputSchema> <!-- Replace with your database schema -->
+        </database>
+        <target>
+            <packageName>house.learning.cleanproject.inventoryservice</packageName> <!-- Replace with your package name for generated classes -->
+            <directory>src/main/java</directory>
+        </target>
+    </generator>
+</configuration>
